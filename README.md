@@ -1,6 +1,6 @@
-# Evmos signer
+# EvmosJS
 
-A typescript signer for the evmos networks, it supports `secp256k1` and `eth_secp256k1` signing.
+A javascript library to interact with the evmos blockchain.
 
 ## Requirements
 
@@ -9,29 +9,30 @@ A typescript signer for the evmos networks, it supports `secp256k1` and `eth_sec
 ## Installation
 
 ```sh
-yarn add @hanchon/evmos-signer
+yarn add @hanchon/evmosjs
 ```
 
 ## Usage
 
-### Signer
+### Account
 
 ```ts
-import {
-  signEthSecp256k1,
-} from "@hanchon/evmos-signer";
-
-const privKey = Buffer.from([
-    186, 11, 156, 234, 90, 241, 218, 188, 13, 58, 202, 98, 87, 101, 244,
-    128, 253, 23, 0, 180, 96, 155, 216, 190, 230, 170, 65, 163, 85, 86, 11,
-    163,
-])
-const message = Buffer.from([
-    177, 240, 144, 132, 71, 52, 192, 86, 100, 12, 4, 148, 127, 217, 62, 166,
-    254, 121, 39, 134, 16, 193, 151, 209, 7, 181, 85, 226, 30, 52, 62, 7,
-])
-
-const sig = signEthSecp256k1(privKey, message)
+import { authClient } from './messages/account'
+let _authClient = new authClient('localhost:9090')
+let data = await _authClient.account(
+    'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a'
+)
+let ethAccount = data
+/*
+{
+  address: 'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a',
+  pubkey: 'CiECiLH1Mbh4cdvANylRhyVcrkugxLw3ynJhBbIUCv0OaRc=',
+  pubkeyType: '/ethermint.crypto.v1.ethsecp256k1.PubKey',
+  accountNumber: 0,
+  sequence: 1,
+  error: '',
+}
+*/
 ```
 
 ## Build locally
@@ -53,4 +54,6 @@ npm install -g grpc-tools
 
 ## TODOs
 
-- Add `secp256k1` support.
+- Publish *npm package*
+
+- Add more protobuf messages

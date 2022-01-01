@@ -1,7 +1,7 @@
 {
     "name": "@hanchon/evmosjs",
     "version": "1.0.0",
-    "description": "Evmos signer for secp256k1 and eth_secp256k1 private keys",
+    "description": "Evmosjs javascript lib for the evmos blockchain",
     "license": "MIT",
     "repository": "hanchon-live/evmosjs",
     "source": "src/evmosjs.ts",
@@ -15,8 +15,8 @@
         "eth",
         "blockchain",
         "address",
-        "signer",
-        "wallet"
+        "wallet",
+        "lib"
     ],
     "files": [
         "lib/**/*"
