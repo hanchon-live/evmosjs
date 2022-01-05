@@ -2,8 +2,8 @@ import { authClient } from '../../src/messages/account'
 import { MockGRPCServer } from './mockgrpc'
 
 const grpc = require('@grpc/grpc-js')
-const authQueryService = require('../../src/evmosproto/cosmos/auth/v1beta1/query_grpc_pb.js')
-const authQueryMessages = require('../../src/evmosproto/cosmos/auth/v1beta1/query_pb.js')
+const authQueryService = require('../proto/cosmos/auth/v1beta1/query_grpc_pb.js')
+const authQueryMessages = require('../proto/cosmos/auth/v1beta1/query_pb.js')
 
 const protoServices = grpc.loadPackageDefinition(authQueryService)
 
@@ -82,7 +82,11 @@ test('test get account', async () => {
     )
     expect(data).toStrictEqual({
         address: 'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a',
-        pubkey: 'CiECiLH1Mbh4cdvANylRhyVcrkugxLw3ynJhBbIUCv0OaRc=',
+        pubkey: new Uint8Array([
+            10, 33, 2, 136, 177, 245, 49, 184, 120, 113, 219, 192, 55, 41, 81,
+            135, 37, 92, 174, 75, 160, 196, 188, 55, 202, 114, 97, 5, 178, 20,
+            10, 253, 14, 105, 23,
+        ]),
         pubkeyType: '/ethermint.crypto.v1.ethsecp256k1.PubKey',
         accountNumber: 0,
         sequence: 1,
@@ -96,7 +100,7 @@ test('test get account', async () => {
     expect(data.error.length).toBeGreaterThan(1)
     expect(data.error).toContain('Error')
     expect(data.address).toBe('')
-    expect(data.pubkey).toBe('')
+    expect(data.pubkey).toStrictEqual(new Uint8Array())
     expect(data.pubkeyType).toBe('')
     expect(data.accountNumber).toBe(-1)
     expect(data.sequence).toBe(-1)
@@ -107,7 +111,7 @@ test('test get account', async () => {
     )
     expect(data).toStrictEqual({
         address: 'evmos18lw704zeyg5zs098lq7x6ypfkfjqlzzln5qh89',
-        pubkey: '',
+        pubkey: new Uint8Array(),
         pubkeyType: '',
         accountNumber: 9,
         sequence: 0,

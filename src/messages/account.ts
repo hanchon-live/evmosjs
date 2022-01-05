@@ -1,15 +1,12 @@
 var grpc = require('@grpc/grpc-js')
 
-const authQueryMessages = require('../evmosproto/cosmos/auth/v1beta1/query_pb.js')
-const authQueryService = require('../evmosproto/cosmos/auth/v1beta1/query_grpc_pb.js')
-const ethTypes = require('../evmosproto/ethermint/types/v1/account_pb.js')
-const protoServices = grpc.loadPackageDefinition(authQueryService)
+import * as query from '../proto/cosmos/auth/v1beta1/query'
+import * as eth from '../proto/ethermint/types/v1/account'
 
 const meta = new grpc.Metadata()
-
 interface Account {
     address: string
-    pubkey: string
+    pubkey: Uint8Array
     pubkeyType: string
     accountNumber: Number
     sequence: Number
@@ -21,7 +18,7 @@ export class authClient {
     pathToService: string
     constructor(pathToService: string) {
         this.pathToService = pathToService
-        this.client = new protoServices.cosmos.auth.v1beta1.Query(
+        this.client = new query.cosmos.auth.v1beta1.QueryClient(
             pathToService,
             grpc.credentials.createInsecure()
         )
@@ -32,8 +29,9 @@ export class authClient {
 
         switch (type) {
             case 'account':
-                message = new authQueryMessages.QueryAccountRequest()
-                message.setAddress(request)
+                message = new query.cosmos.auth.v1beta1.QueryAccountRequest({
+                    address: request,
+                })
         }
         return message
     }
@@ -41,41 +39,65 @@ export class authClient {
     async account(address: any): Promise<Account> {
         meta.set('Account', address)
         const message = await this.createRequestMessage(address, 'account')
-        const promise = new Promise((resolve, reject) => {
-            this.client.account(message, meta, (err: any, res: any) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(res)
+        const promise =
+            new Promise<query.cosmos.auth.v1beta1.QueryAccountResponse>(
+                (resolve, reject) => {
+                    this.client.Account(
+                        message,
+                        meta,
+                        (
+                            err: any,
+                            res: query.cosmos.auth.v1beta1.QueryAccountResponse
+                        ) => {
+                            if (err) {
+                                reject(err)
+                            } else {
+                                resolve(res)
+                            }
+                        }
+                    )
                 }
-            })
-        })
+            )
 
         return promise
-            .then((value: any) => {
+            .then((value: query.cosmos.auth.v1beta1.QueryAccountResponse) => {
                 // console.dir(value.serializeBinary(), { 'maxArrayLength': null })
                 const ethAccount = value.toObject()
-                const buff = Buffer.from(ethAccount.account.value, 'base64')
-                const account =
-                    ethTypes.EthAccount.deserializeBinary(buff).toObject()
-
-                return {
-                    address: account.baseAccount.address,
-                    pubkey: account.baseAccount.pubKey
-                        ? account.baseAccount.pubKey.value
-                        : '',
-                    pubkeyType: account.baseAccount.pubKey
-                        ? account.baseAccount.pubKey.typeUrl
-                        : '',
-                    accountNumber: account.baseAccount.accountNumber,
-                    sequence: account.baseAccount.sequence,
-                    error: '',
+                if (ethAccount.account && ethAccount.account.value) {
+                    let account = eth.ethermint.types.v1.EthAccount.deserialize(
+                        ethAccount.account.value
+                    ).toObject()
+                    if (account.base_account) {
+                        return {
+                            address: account.base_account.address
+                                ? account.base_account.address
+                                : '',
+                            pubkey: account.base_account.pub_key
+                                ? account.base_account.pub_key.value
+                                    ? account.base_account.pub_key.value
+                                    : new Uint8Array()
+                                : new Uint8Array(),
+                            pubkeyType: account.base_account.pub_key
+                                ? account.base_account.pub_key.type_url
+                                    ? account.base_account.pub_key.type_url
+                                    : ''
+                                : '',
+                            accountNumber: account.base_account.account_number
+                                ? account.base_account.account_number
+                                : 0,
+                            sequence: account.base_account.sequence
+                                ? account.base_account.sequence
+                                : 0,
+                            error: '',
+                        }
+                    }
                 }
+                throw 'Account response has no base/eth account.'
             })
             .catch((e: any) => {
                 return {
                     address: '',
-                    pubkey: '',
+                    pubkey: new Uint8Array(),
                     pubkeyType: '',
                     accountNumber: -1,
                     sequence: -1,

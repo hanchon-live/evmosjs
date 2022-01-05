@@ -4,7 +4,7 @@ repos:
       hooks:
           - id: trailing-whitespace
           - id: end-of-file-fixer
-            exclude: ^(proto|src/evmosproto|lib)/
+            exclude: ^(proto|src/proto|tests/proto|lib)/
           - id: check-yaml
           - id: check-added-large-files
           - id: double-quote-string-fixer
@@ -13,10 +13,10 @@ repos:
       rev: 'v2.4.1'
       hooks:
           - id: prettier
-            exclude: ^(proto|src/evmosproto)/
+            exclude: ^(proto|src/proto|tests/proto|lib)/
 
     - repo: https://github.com/pre-commit/mirrors-eslint
       rev: 'v8.5.0'
       hooks:
           - id: eslint
-            exclude: ^(proto|src/evmosproto)/
+            exclude: ^(proto|src/proto|tests/proto|lib)/
