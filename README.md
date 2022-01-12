@@ -33,6 +33,33 @@ let accountResponse = await lib.getAccount(req.body.wallet.address)
 */
 ```
 
+### Message Send
+
+```ts
+import { EvmosJS } from "@hanchon/evmosjs";
+
+let lib = new EvmosJS('localhost:9090')
+let accountResponse = await lib.getAccount(req.body.wallet.address)
+
+let msgSend = lib.messages.CreateMsgSend(req.body.wallet.address,
+    req.body.destination,
+    req.body.amount,
+    req.body.denom)
+
+let transaction = lib.messages.CreateTransaction(
+    msgSend,
+    '',
+    '20',
+    'aphoton',
+    200000,
+    'ethsecp256k1',
+    req.body.wallet.pubkey,
+    accountResponse.sequence,
+    accountResponse.accountNumber,
+    'evmos_9000-1',
+)
+```
+
 ## Build locally
 
 ```sh
