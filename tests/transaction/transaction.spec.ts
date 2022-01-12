@@ -1,20 +1,20 @@
 import { createMsgSend } from '../../src/messages/msgSend'
 import {
-    createBodyBytes,
+    createBody,
     createFee,
     createSignerInfo,
-    createAuthInfoBytes,
+    createAuthInfo,
     createSigDoc,
 } from '../../src/transaction/transaction'
 
-test('createBodyBytes test', () => {
+test('createBody test', () => {
     let msgSend = createMsgSend(
         'evmos18lw704zeyg5zs098lq7x6ypfkfjqlzzln5qh89',
         'evmos1ndfagggdkgv9vc7wha5gj2zzrnyqd3r704lr4q',
         '69420',
         'aphoton'
     )
-    let res = createBodyBytes(msgSend, 'this is a test')
+    let res = createBody(msgSend, 'this is a test')
     expect(res.toObject()).toStrictEqual({
         messages: [
             {
@@ -77,7 +77,7 @@ test('createSignerInfo test', () => {
     })
 })
 
-test('createAuthInfoBytes test', () => {
+test('createAuthInfo test', () => {
     const pubkey = new Uint8Array([
         10, 33, 2, 136, 177, 245, 49, 184, 120, 113, 219, 192, 55, 41, 81, 135,
         37, 92, 174, 75, 160, 196, 188, 55, 202, 114, 97, 5, 178, 20, 10, 253,
@@ -90,7 +90,7 @@ test('createAuthInfoBytes test', () => {
     const gas = 20000
     const fee = createFee(value, denom, gas)
 
-    let msg = createAuthInfoBytes(info, fee)
+    let msg = createAuthInfo(info, fee)
     expect(msg.toObject()).toStrictEqual({
         signer_infos: [
             {
@@ -126,7 +126,7 @@ test('createSigDoc test', () => {
         '69420',
         'aphoton'
     )
-    let bodyBytes = createBodyBytes(msgSend, 'this is a test')
+    let bodyBytes = createBody(msgSend, 'this is a test')
 
     const pubkey = new Uint8Array([
         10, 33, 2, 136, 177, 245, 49, 184, 120, 113, 219, 192, 55, 41, 81, 135,
@@ -140,7 +140,7 @@ test('createSigDoc test', () => {
     const gas = 20000
     const fee = createFee(value, denom, gas)
 
-    const authInfo = createAuthInfoBytes(info, fee)
+    const authInfo = createAuthInfo(info, fee)
 
     const chainId = 'evmos-9000_1'
 

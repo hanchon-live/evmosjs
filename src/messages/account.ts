@@ -4,12 +4,12 @@ import * as query from '../proto/cosmos/auth/v1beta1/query'
 import * as eth from '../proto/ethermint/types/v1/account'
 
 const meta = new grpc.Metadata()
-interface Account {
+export interface Account {
     address: string
     pubkey: Uint8Array
     pubkeyType: string
-    accountNumber: Number
-    sequence: Number
+    accountNumber: number
+    sequence: number
     error: string
 }
 

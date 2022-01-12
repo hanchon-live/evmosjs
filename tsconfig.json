@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "ES2015",
+        "target": "ESNext",
+        "module": "ESNext",
         "declaration": true,
         "outDir": "./lib",
         "strict": true,
         "esModuleInterop": true,
         "allowJs": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        // Proto compiler make files with any as return value
+        "noImplicitAny": false
     },
     "include": ["src"],
     "exclude": ["node_modules", "**/__tests__/*", "tests"]

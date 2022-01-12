@@ -6,7 +6,7 @@ import * as secp from '../proto/cosmos/crypto/secp256k1/keys'
 
 import { createAnyMessage, MessageGenerated } from '../messages/utils'
 
-export function createBodyBytes(message: any, memo: string) {
+export function createBody(message: any, memo: string) {
     let msg = new tx.cosmos.tx.v1beta1.TxBody({
         messages: [createAnyMessage(message)],
         memo: memo,
@@ -65,7 +65,7 @@ export function createSignerInfo(
     return signerInfo
 }
 
-export function createAuthInfoBytes(
+export function createAuthInfo(
     signerInfo: tx.cosmos.tx.v1beta1.SignerInfo,
     fee: tx.cosmos.tx.v1beta1.Fee
 ) {

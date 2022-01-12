@@ -1,10 +1,22 @@
-import { authClient } from './messages/account'
+import { MessagesHelper } from './messages'
+import { authClient, Account } from './messages/account'
 
-export async function evmosjs() {
-    let _authClient = new authClient('localhost:9090')
-    let data = await _authClient.account(
-        'evmos18lw704zeyg5zs098lq7x6ypfkfjqlzzln5qh89'
-    )
-    let ethAccount = data
-    console.log(ethAccount)
+export class EvmosJS {
+    private endpoint: string
+    public messages: MessagesHelper
+
+    constructor(endpoint: string) {
+        this.endpoint = endpoint
+        this.messages = new MessagesHelper()
+    }
+
+    setEndpoint(endpoint: string) {
+        this.endpoint = endpoint
+    }
+
+    async getAccount(address: string): Promise<Account> {
+        const client = new authClient(this.endpoint)
+        let data = await client.account(address)
+        return data
+    }
 }
