@@ -17,12 +17,10 @@ yarn add @hanchon/evmosjs
 ### Account
 
 ```ts
-import { authClient } from './messages/account'
-let _authClient = new authClient('localhost:9090')
-let data = await _authClient.account(
-    'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a'
-)
-let ethAccount = data
+import { EvmosJS } from "@hanchon/evmosjs";
+let lib = new EvmosJS('localhost:9090')
+let accountResponse = await lib.getAccount(req.body.wallet.address)
+
 /*
 {
   address: 'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a',
