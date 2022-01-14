@@ -6,7 +6,6 @@
  *  */
 import * as dependency_1 from "./erc20";
 import * as dependency_2 from "./../../../gogoproto/gogo";
-import * as dependency_3 from "./../../../google/protobuf/duration";
 import * as pb_1 from "google-protobuf";
 export namespace evmos.erc20.v1 {
     export class GenesisState extends pb_1.Message {
@@ -101,7 +100,6 @@ export namespace evmos.erc20.v1 {
     export class Params extends pb_1.Message {
         constructor(data?: any[] | {
             enable_erc20?: boolean;
-            token_pair_voting_period?: dependency_3.google.protobuf.Duration;
             enable_evm_hook?: boolean;
         }) {
             super();
@@ -109,9 +107,6 @@ export namespace evmos.erc20.v1 {
             if (!Array.isArray(data) && typeof data == "object") {
                 if ("enable_erc20" in data && data.enable_erc20 != undefined) {
                     this.enable_erc20 = data.enable_erc20;
-                }
-                if ("token_pair_voting_period" in data && data.token_pair_voting_period != undefined) {
-                    this.token_pair_voting_period = data.token_pair_voting_period;
                 }
                 if ("enable_evm_hook" in data && data.enable_evm_hook != undefined) {
                     this.enable_evm_hook = data.enable_evm_hook;
@@ -124,29 +119,19 @@ export namespace evmos.erc20.v1 {
         set enable_erc20(value: boolean) {
             pb_1.Message.setField(this, 1, value);
         }
-        get token_pair_voting_period() {
-            return pb_1.Message.getWrapperField(this, dependency_3.google.protobuf.Duration, 2) as dependency_3.google.protobuf.Duration;
-        }
-        set token_pair_voting_period(value: dependency_3.google.protobuf.Duration) {
-            pb_1.Message.setWrapperField(this, 2, value);
-        }
         get enable_evm_hook() {
-            return pb_1.Message.getField(this, 3) as boolean;
+            return pb_1.Message.getField(this, 2) as boolean;
         }
         set enable_evm_hook(value: boolean) {
-            pb_1.Message.setField(this, 3, value);
+            pb_1.Message.setField(this, 2, value);
         }
         static fromObject(data: {
             enable_erc20?: boolean;
-            token_pair_voting_period?: ReturnType<typeof dependency_3.google.protobuf.Duration.prototype.toObject>;
             enable_evm_hook?: boolean;
         }) {
             const message = new Params({});
             if (data.enable_erc20 != null) {
                 message.enable_erc20 = data.enable_erc20;
-            }
-            if (data.token_pair_voting_period != null) {
-                message.token_pair_voting_period = dependency_3.google.protobuf.Duration.fromObject(data.token_pair_voting_period);
             }
             if (data.enable_evm_hook != null) {
                 message.enable_evm_hook = data.enable_evm_hook;
@@ -156,14 +141,10 @@ export namespace evmos.erc20.v1 {
         toObject() {
             const data: {
                 enable_erc20?: boolean;
-                token_pair_voting_period?: ReturnType<typeof dependency_3.google.protobuf.Duration.prototype.toObject>;
                 enable_evm_hook?: boolean;
             } = {};
             if (this.enable_erc20 != null) {
                 data.enable_erc20 = this.enable_erc20;
-            }
-            if (this.token_pair_voting_period != null) {
-                data.token_pair_voting_period = this.token_pair_voting_period.toObject();
             }
             if (this.enable_evm_hook != null) {
                 data.enable_evm_hook = this.enable_evm_hook;
@@ -176,10 +157,8 @@ export namespace evmos.erc20.v1 {
             const writer = w || new pb_1.BinaryWriter();
             if (this.enable_erc20 !== undefined)
                 writer.writeBool(1, this.enable_erc20);
-            if (this.token_pair_voting_period !== undefined)
-                writer.writeMessage(2, this.token_pair_voting_period, () => this.token_pair_voting_period.serialize(writer));
             if (this.enable_evm_hook !== undefined)
-                writer.writeBool(3, this.enable_evm_hook);
+                writer.writeBool(2, this.enable_evm_hook);
             if (!w)
                 return writer.getResultBuffer();
         }
@@ -193,9 +172,6 @@ export namespace evmos.erc20.v1 {
                         message.enable_erc20 = reader.readBool();
                         break;
                     case 2:
-                        reader.readMessage(message.token_pair_voting_period, () => message.token_pair_voting_period = dependency_3.google.protobuf.Duration.deserialize(reader));
-                        break;
-                    case 3:
                         message.enable_evm_hook = reader.readBool();
                         break;
                     default: reader.skipField();
