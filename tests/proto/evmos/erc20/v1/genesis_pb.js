@@ -19,8 +19,6 @@ var evmos_erc20_v1_erc20_pb = require('../../../evmos/erc20/v1/erc20_pb.js');
 goog.object.extend(proto, evmos_erc20_v1_erc20_pb);
 var gogoproto_gogo_pb = require('../../../gogoproto/gogo_pb.js');
 goog.object.extend(proto, gogoproto_gogo_pb);
-var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
-goog.object.extend(proto, google_protobuf_duration_pb);
 goog.exportSymbol('proto.evmos.erc20.v1.GenesisState', null, global);
 goog.exportSymbol('proto.evmos.erc20.v1.Params', null, global);
 /**
@@ -309,8 +307,7 @@ proto.evmos.erc20.v1.Params.prototype.toObject = function(opt_includeInstance) {
 proto.evmos.erc20.v1.Params.toObject = function(includeInstance, msg) {
   var f, obj = {
     enableErc20: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
-    tokenPairVotingPeriod: (f = msg.getTokenPairVotingPeriod()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-    enableEvmHook: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
+    enableEvmHook: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -352,11 +349,6 @@ proto.evmos.erc20.v1.Params.deserializeBinaryFromReader = function(msg, reader) 
       msg.setEnableErc20(value);
       break;
     case 2:
-      var value = new google_protobuf_duration_pb.Duration;
-      reader.readMessage(value,google_protobuf_duration_pb.Duration.deserializeBinaryFromReader);
-      msg.setTokenPairVotingPeriod(value);
-      break;
-    case 3:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setEnableEvmHook(value);
       break;
@@ -396,18 +388,10 @@ proto.evmos.erc20.v1.Params.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getTokenPairVotingPeriod();
-  if (f != null) {
-    writer.writeMessage(
-      2,
-      f,
-      google_protobuf_duration_pb.Duration.serializeBinaryToWriter
-    );
-  }
   f = message.getEnableEvmHook();
   if (f) {
     writer.writeBool(
-      3,
+      2,
       f
     );
   }
@@ -433,48 +417,11 @@ proto.evmos.erc20.v1.Params.prototype.setEnableErc20 = function(value) {
 
 
 /**
- * optional google.protobuf.Duration token_pair_voting_period = 2;
- * @return {?proto.google.protobuf.Duration}
- */
-proto.evmos.erc20.v1.Params.prototype.getTokenPairVotingPeriod = function() {
-  return /** @type{?proto.google.protobuf.Duration} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 2));
-};
-
-
-/**
- * @param {?proto.google.protobuf.Duration|undefined} value
- * @return {!proto.evmos.erc20.v1.Params} returns this
-*/
-proto.evmos.erc20.v1.Params.prototype.setTokenPairVotingPeriod = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.evmos.erc20.v1.Params} returns this
- */
-proto.evmos.erc20.v1.Params.prototype.clearTokenPairVotingPeriod = function() {
-  return this.setTokenPairVotingPeriod(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.evmos.erc20.v1.Params.prototype.hasTokenPairVotingPeriod = function() {
-  return jspb.Message.getField(this, 2) != null;
-};
-
-
-/**
- * optional bool enable_evm_hook = 3;
+ * optional bool enable_evm_hook = 2;
  * @return {boolean}
  */
 proto.evmos.erc20.v1.Params.prototype.getEnableEvmHook = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
 };
 
 
@@ -483,7 +430,7 @@ proto.evmos.erc20.v1.Params.prototype.getEnableEvmHook = function() {
  * @return {!proto.evmos.erc20.v1.Params} returns this
  */
 proto.evmos.erc20.v1.Params.prototype.setEnableEvmHook = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 3, value);
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 
