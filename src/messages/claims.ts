@@ -5,12 +5,15 @@ import * as query from '../proto/evmos/claim/v1/query'
 
 const meta = new grpc.Metadata()
 
-export interface Account {
+export interface Claim {
+    action: number
+    claimable_amount: string
+    completed: boolean
+}
+export interface ClaimRecord {
+    initial_claimable_amount: string
+    claims: Claim[]
     address: string
-    pubkey: Uint8Array
-    pubkeyType: string
-    accountNumber: number
-    sequence: number
     error: string
 }
 
@@ -38,7 +41,6 @@ export class ClaimClient {
     }
 
     async claimRecords(address: any): Promise<any> {
-        // meta.set('Account', address)
         const message = await this.createRequestMessage(
             address,
             'claim-records'
@@ -66,49 +68,36 @@ export class ClaimClient {
         return promise
             .then((value: query.evmos.claim.v1.QueryClaimRecordsResponse) => {
                 // console.dir(value.serializeBinary(), { 'maxArrayLength': null })
-                console.log(value)
-                // const ethAccount = value.toObject()
-                // if (ethAccount.account && ethAccount.account.value) {
-                //     let account = eth.ethermint.types.v1.EthAccount.deserialize(
-                //         ethAccount.account.value
-                //     ).toObject()
-                //     if (account.base_account) {
-                //         return {
-                //             address: account.base_account.address
-                //                 ? account.base_account.address
-                //                 : '',
-                //             pubkey: account.base_account.pub_key
-                //                 ? account.base_account.pub_key.value
-                //                     ? account.base_account.pub_key.value
-                //                     : new Uint8Array()
-                //                 : new Uint8Array(),
-                //             pubkeyType: account.base_account.pub_key
-                //                 ? account.base_account.pub_key.type_url
-                //                     ? account.base_account.pub_key.type_url
-                //                     : ''
-                //                 : '',
-                //             accountNumber: account.base_account.account_number
-                //                 ? account.base_account.account_number
-                //                 : 0,
-                //             sequence: account.base_account.sequence
-                //                 ? account.base_account.sequence
-                //                 : 0,
-                //             error: '',
-                //         }
-                //     }
-                // }
-                // throw 'Account response has no base/eth account.'
+                const response = value.toObject()
+                let claims: Claim[] = []
+
+                if (response.claims) {
+                    response.claims.forEach((e) => {
+                        claims.push({
+                            action: e.action ? e.action.valueOf() : -1,
+                            claimable_amount: e.claimable_amount
+                                ? e.claimable_amount
+                                : '0',
+                            completed: e.completed ? e.completed : false,
+                        })
+                    })
+                }
+                return {
+                    initial_claimable_amount: response.initial_claimable_amount
+                        ? response.initial_claimable_amount
+                        : '0',
+                    claims: claims,
+                    address: address,
+                    error: '',
+                }
             })
             .catch((e: any) => {
-                console.error(e)
-                // return {
-                //     address: '',
-                //     pubkey: new Uint8Array(),
-                //     pubkeyType: '',
-                //     accountNumber: -1,
-                //     sequence: -1,
-                //     error: e.message,
-                // }
+                return {
+                    address: address,
+                    initial_claimable_amount: '0',
+                    claims: [],
+                    error: e.message,
+                }
             })
     }
 }

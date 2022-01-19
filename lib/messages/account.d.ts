@@ -6,7 +6,7 @@ export interface Account {
     sequence: number;
     error: string;
 }
-export declare class authClient {
+export declare class AuthClient {
     client: any;
     pathToService: string;
     constructor(pathToService: string);

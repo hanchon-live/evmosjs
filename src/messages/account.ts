@@ -13,7 +13,7 @@ export interface Account {
     error: string
 }
 
-export class authClient {
+export class AuthClient {
     client: any
     pathToService: string
     constructor(pathToService: string) {
