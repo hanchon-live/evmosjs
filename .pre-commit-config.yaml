@@ -20,3 +20,9 @@ repos:
       hooks:
           - id: eslint
             exclude: ^(proto|src/proto|tests/proto|lib)/
+            additional_dependencies:
+                [
+                    'eslint@8.7.0',
+                    'eslint-plugin-import@latest',
+                    'typescript-eslint@latest',
+                ]

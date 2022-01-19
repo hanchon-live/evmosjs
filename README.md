@@ -60,6 +60,27 @@ let transaction = lib.messages.CreateTransaction(
 )
 ```
 
+### Claiming module
+
+```ts
+import { EvmosJS } from "@hanchon/evmosjs";
+let lib = new EvmosJS('localhost:9090')
+let claims = await lib.getClaimRecords('evmos18453r3pzazr0da0nz6hxnp5qyh9a689lwm7z7e')
+/*
+{
+    initial_claimable_amount: '10000',
+    claims: [
+        { action: 1, claimable_amount: '1471', completed: false },
+        { action: 2, claimable_amount: '0', completed: true },
+        { action: 3, claimable_amount: '1471', completed: false },
+        { action: 4, claimable_amount: '1471', completed: false }
+    ],
+    address: 'evmos18453r3pzazr0da0nz6hxnp5qyh9a689lwm7z7e',
+    error: ''
+}
+*/
+```
+
 ## Build locally
 
 ```sh
@@ -78,7 +99,5 @@ npm install -g grpc-tools
 ```
 
 ## TODOs
-
-- Publish *npm package*
 
 - Add more protobuf messages

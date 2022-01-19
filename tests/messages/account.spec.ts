@@ -1,4 +1,4 @@
-import { authClient } from '../../src/messages/account'
+import { AuthClient } from '../../src/messages/account'
 import { MockGRPCServer } from './mockgrpc'
 
 const grpc = require('@grpc/grpc-js')
@@ -74,10 +74,10 @@ test('test get account', async () => {
     await server.start()
     expect(server.getServer()).toBeTruthy()
 
-    let _authClient = new authClient(`localhost:${server.getPort()}`)
+    let _AuthClient = new AuthClient(`localhost:${server.getPort()}`)
 
     // Valid wallet
-    let data = await _authClient.account(
+    let data = await _AuthClient.account(
         'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03a'
     )
     expect(data).toStrictEqual({
@@ -94,7 +94,7 @@ test('test get account', async () => {
     })
 
     // Invalid or not found
-    data = await _authClient.account(
+    data = await _AuthClient.account(
         'evmos19s2k47r2ay782cfs0hcej87xmzg25pr2a6a03as'
     )
     expect(data.error.length).toBeGreaterThan(1)
@@ -106,7 +106,7 @@ test('test get account', async () => {
     expect(data.sequence).toBe(-1)
 
     // Wallet that didn't send any transaction has no pubkey
-    data = await _authClient.account(
+    data = await _AuthClient.account(
         'evmos18lw704zeyg5zs098lq7x6ypfkfjqlzzln5qh89'
     )
     expect(data).toStrictEqual({
