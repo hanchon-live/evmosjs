@@ -129,10 +129,6 @@ export declare namespace evmos.erc20.v1 {
         toObject(): {
             params?: {
                 enable_erc20?: boolean | undefined;
-                token_pair_voting_period?: {
-                    seconds?: number | undefined;
-                    nanos?: number | undefined;
-                } | undefined;
                 enable_evm_hook?: boolean | undefined;
             } | undefined;
         };

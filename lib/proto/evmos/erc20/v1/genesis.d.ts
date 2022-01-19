@@ -5,7 +5,6 @@
  * git: https://github.com/thesayyn/protoc-gen-ts
  *  */
 import * as dependency_1 from "./erc20";
-import * as dependency_3 from "./../../../google/protobuf/duration";
 import * as pb_1 from "google-protobuf";
 export declare namespace evmos.erc20.v1 {
     class GenesisState extends pb_1.Message {
@@ -24,10 +23,6 @@ export declare namespace evmos.erc20.v1 {
         toObject(): {
             params?: {
                 enable_erc20?: boolean | undefined;
-                token_pair_voting_period?: {
-                    seconds?: number | undefined;
-                    nanos?: number | undefined;
-                } | undefined;
                 enable_evm_hook?: boolean | undefined;
             } | undefined;
             token_pairs?: {
@@ -46,26 +41,18 @@ export declare namespace evmos.erc20.v1 {
     class Params extends pb_1.Message {
         constructor(data?: any[] | {
             enable_erc20?: boolean;
-            token_pair_voting_period?: dependency_3.google.protobuf.Duration;
             enable_evm_hook?: boolean;
         });
         get enable_erc20(): boolean;
         set enable_erc20(value: boolean);
-        get token_pair_voting_period(): dependency_3.google.protobuf.Duration;
-        set token_pair_voting_period(value: dependency_3.google.protobuf.Duration);
         get enable_evm_hook(): boolean;
         set enable_evm_hook(value: boolean);
         static fromObject(data: {
             enable_erc20?: boolean;
-            token_pair_voting_period?: ReturnType<typeof dependency_3.google.protobuf.Duration.prototype.toObject>;
             enable_evm_hook?: boolean;
         }): Params;
         toObject(): {
             enable_erc20?: boolean | undefined;
-            token_pair_voting_period?: {
-                seconds?: number | undefined;
-                nanos?: number | undefined;
-            } | undefined;
             enable_evm_hook?: boolean | undefined;
         };
         serialize(): Uint8Array;
