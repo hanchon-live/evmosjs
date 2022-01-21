@@ -1,6 +1,6 @@
 {
     "name": "@hanchon/evmosjs",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Evmosjs javascript lib for the evmos blockchain",
     "license": "MIT",
     "repository": "hanchon-live/evmosjs",
@@ -23,6 +23,7 @@
     ],
     "author": "Hanchon <guillermo.paoletti@gmail.com>",
     "scripts": {
+        "clean": "find ./src -name '*.js' -type f -delete && find ./examples -name '*.js' -type f -delete",
         "build": "microbundle",
         "test": "NODE_OPTIONS=--experimental-vm-modules jest",
         "watch": "microbundle watch"
@@ -43,12 +44,10 @@
         "jest": "^27.1.0",
         "microbundle": "^0.13.3",
         "prettier": "^2.5.1",
-        "protoc-gen-ts": "^0.8.1",
         "typescript": "^4.4.2"
     },
     "dependencies": {
-        "@grpc/grpc-js": "^1.5.0",
-        "google-protobuf": "^3.19.1",
+        "axios": "^0.25.0",
         "sha3": "^2.1.4"
     }
 }
