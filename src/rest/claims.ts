@@ -36,7 +36,6 @@ export async function getTotalUnclaimed(client: RestInstance) {
 export async function getClaimRecords(client: RestInstance, address: string) {
     try {
         let res = await client.get(`/evmos/claim/v1/claim_records/${address}`)
-        console.log(res)
         return parseClaimRecords(res.data, address)
     } catch (e: any) {
         return {

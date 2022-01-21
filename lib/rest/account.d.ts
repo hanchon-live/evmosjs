@@ -21,4 +21,4 @@ export declare function getAccount(client: RestInstance, address: string): Promi
     accountNumber: number;
     sequence: number;
     error: any;
-} | undefined>;
+}>;

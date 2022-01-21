@@ -12,9 +12,6 @@ export interface Account {
 export async function getAccount(client: RestInstance, address: string) {
     try {
         let res = await client.get(`/cosmos/auth/v1beta1/accounts/${address}`)
-        console.log(res.data)
-        console.log(res.data.account.base_account.pub_key)
-        console.log(res.data.account.base_account.pub_key['@type'])
         return parseReponse(res.data.account)
     } catch (e: any) {
         return {
@@ -50,6 +47,6 @@ function parseReponse(account) {
                 : 0,
             error: '',
         }
-        throw 'Account response has no base/eth account.'
     }
+    throw 'Account response has no base/eth account.'
 }
