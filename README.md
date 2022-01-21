@@ -14,7 +14,13 @@ yarn add @hanchon/evmosjs
 
 ## Usage
 
-### Account
+Examples at [ExamplesFolder](https://github.com/hanchon-live/evmosjs/tree/master/examples)
+
+## Proto Usage
+
+This lib is going to be migrated to [EvmosProtoJs](https://github.com/hanchon-live/evmosprotojs), because http2 is not compatible with browsers.
+
+### Account(deprecated)
 
 ```ts
 import { EvmosJS } from "@hanchon/evmosjs";
@@ -33,7 +39,7 @@ let accountResponse = await lib.getAccount(req.body.wallet.address)
 */
 ```
 
-### Message Send
+### Message Send(deprecated)
 
 ```ts
 import { EvmosJS } from "@hanchon/evmosjs";
@@ -60,7 +66,7 @@ let transaction = lib.messages.CreateTransaction(
 )
 ```
 
-### Claiming module
+### Claiming module(deprecated)
 
 ```ts
 import { EvmosJS } from "@hanchon/evmosjs";
@@ -100,4 +106,8 @@ npm install -g grpc-tools
 
 ## TODOs
 
-- Add more protobuf messages
+- Remove unnecessary protobuf code
+- Create mock to test the rest api
+- Create tests for the rest code
+- Add more rest calls
+- Figure it out how to send a transactions using the rest api
