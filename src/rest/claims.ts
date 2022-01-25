@@ -20,7 +20,7 @@ export interface ClaimRecord {
 
 export async function getTotalUnclaimed(client: RestInstance) {
     try {
-        let res = await client.get(`/evmos/claim/v1/total_unclaimed`)
+        let res = await client.get(`/evmos/claims/v1/total_unclaimed`)
         return {
             coins: res.data.coins,
             error: '',
@@ -35,7 +35,7 @@ export async function getTotalUnclaimed(client: RestInstance) {
 
 export async function getClaimRecords(client: RestInstance, address: string) {
     try {
-        let res = await client.get(`/evmos/claim/v1/claim_records/${address}`)
+        let res = await client.get(`/evmos/claims/v1/claim_records/${address}`)
         return parseClaimRecords(res.data, address)
     } catch (e: any) {
         return {
