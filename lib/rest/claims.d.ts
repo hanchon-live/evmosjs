@@ -9,7 +9,7 @@ export interface Claim {
     claimable_amount: string;
     completed: boolean;
 }
-export interface ClaimRecord {
+export interface ClaimsRecord {
     initial_claimable_amount: string;
     claims: Claim[];
     address: string;
@@ -22,7 +22,7 @@ export declare function getTotalUnclaimed(client: RestInstance): Promise<{
     coins: never[];
     error: any;
 }>;
-export declare function getClaimRecords(client: RestInstance, address: string): Promise<{
+export declare function getClaimsRecord(client: RestInstance, address: string): Promise<{
     initial_claimable_amount: any;
     claims: Claim[];
     address: string;

@@ -11,7 +11,7 @@ export interface Claim {
     claimable_amount: string
     completed: boolean
 }
-export interface ClaimRecord {
+export interface ClaimsRecord {
     initial_claimable_amount: string
     claims: Claim[]
     address: string
@@ -33,10 +33,10 @@ export async function getTotalUnclaimed(client: RestInstance) {
     }
 }
 
-export async function getClaimRecords(client: RestInstance, address: string) {
+export async function getClaimsRecord(client: RestInstance, address: string) {
     try {
         let res = await client.get(`/evmos/claims/v1/claims_record/${address}`)
-        return parseClaimRecords(res.data, address)
+        return parseClaimsRecord(res.data, address)
     } catch (e: any) {
         return {
             address: address,
@@ -47,7 +47,7 @@ export async function getClaimRecords(client: RestInstance, address: string) {
     }
 }
 
-function parseClaimRecords(response: any, address: string) {
+function parseClaimsRecord(response: any, address: string) {
     let claims: Claim[] = []
 
     if (response.claims) {
