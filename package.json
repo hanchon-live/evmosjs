@@ -43,6 +43,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "jest": "^27.1.0",
         "microbundle": "^0.13.3",
+        "mockttp": "^2.5.1",
         "prettier": "^2.5.1",
         "typescript": "^4.4.2"
     },
