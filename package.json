@@ -1,6 +1,6 @@
 {
     "name": "@hanchon/evmosjs",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Evmosjs javascript lib for the evmos blockchain",
     "license": "MIT",
     "repository": "hanchon-live/evmosjs",

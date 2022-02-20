@@ -48,7 +48,7 @@ describe('mock for claims', () => {
         it('valid wallet', async () => {
             const address = 'evmos1gpapf6d8v85vwsl4w36n8l5qlchhp2j2drdyxg'
             await mockServer
-                .forGet(`/evmos/claims/v1/claims_record/${address}`)
+                .forGet(`/evmos/claims/v1/claims_records/${address}`)
                 .thenReply(
                     200,
                     JSON.stringify({
@@ -110,7 +110,7 @@ describe('mock for claims', () => {
         it('invalid wallet', async () => {
             const address = 'evmos1gpapf6d8v85vwsl4w36n8l5qlchhp2j2drdyxgq'
             await mockServer
-                .forGet(`/evmos/claims/v1/claims_record/${address}`)
+                .forGet(`/evmos/claims/v1/claims_records/${address}`)
                 .thenReply(400, '')
             const response = await getClaimsRecord(rest, address)
             expect(response).toStrictEqual({
@@ -124,7 +124,7 @@ describe('mock for claims', () => {
         it('wallet with no records', async () => {
             const address = 'evmos1qc3xt7vctgwesrlfytve5yja8qcja4tcjkxemy'
             await mockServer
-                .forGet(`/evmos/claims/v1/claims_record/${address}`)
+                .forGet(`/evmos/claims/v1/claims_records/${address}`)
                 .thenReply(404, '')
             const response = await getClaimsRecord(rest, address)
             expect(response).toStrictEqual({
