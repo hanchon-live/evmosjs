@@ -1,5 +1,7 @@
 # EvmosJS
 
+NOTE: repo archived, all related code moved under Tharsis org on github -> [evmosjs](https://github.com/tharsis/evmosjs)
+
 A javascript library to interact with the evmos blockchain.
 
 ## Requirements
